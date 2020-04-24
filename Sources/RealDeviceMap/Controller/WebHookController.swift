@@ -152,47 +152,47 @@ class WebHookController {
                         self.pokemonEvents = [String: Pokemon]()
                         self.pokemonEventLock.unlock()
 
-                        self.pokestopEventLock.lock()
-                        for pokestopEvent in self.pokestopEvents {
-                            events.append(pokestopEvent.value.getWebhookValues(type: "pokestop"))
-                        }
-                        self.pokestopEvents = [String: Pokestop]()
-                        self.pokestopEventLock.unlock()
-
-                        self.lureEventLock.lock()
-                        for lureEvent in self.lureEvents {
-                            events.append(lureEvent.value.getWebhookValues(type: "lure"))
-                        }
-                        self.lureEvents = [String: Pokestop]()
-                        self.lureEventLock.unlock()
-
-                        self.invasionEventLock.lock()
-                        for invasionEvent in self.invasionEvents {
-                            events.append(invasionEvent.value.getWebhookValues(type: "invasion"))
-                        }
-                        self.invasionEvents = [String: Pokestop]()
-                        self.invasionEventLock.unlock()
-
-                        self.questEventLock.lock()
-                        for questEvent in self.questEvents {
-                            events.append(questEvent.value.getWebhookValues(type: "quest"))
-                        }
-                        self.questEvents = [String: Pokestop]()
-                        self.questEventLock.unlock()
-
-                        self.gymEventLock.lock()
-                        for gymEvent in self.gymEvents {
-                            events.append(gymEvent.value.getWebhookValues(type: "gym"))
-                        }
-                        self.gymEvents = [String: Gym]()
-                        self.gymEventLock.unlock()
-
-                        self.gymInfoEventLock.lock()
-                        for gymInfoEvent in self.gymInfoEvents {
-                            events.append(gymInfoEvent.value.getWebhookValues(type: "gym-info"))
-                        }
-                        self.gymInfoEvents = [String: Gym]()
-                        self.gymInfoEventLock.unlock()
+                        //self.pokestopEventLock.lock()
+                        //for pokestopEvent in self.pokestopEvents {
+                        //    events.append(pokestopEvent.value.getWebhookValues(type: "pokestop"))
+                        //}
+                        //self.pokestopEvents = [String: Pokestop]()
+                        //self.pokestopEventLock.unlock()
+						//
+                        //self.lureEventLock.lock()
+                        //for lureEvent in self.lureEvents {
+                        //    events.append(lureEvent.value.getWebhookValues(type: "lure"))
+                        //}
+                        //self.lureEvents = [String: Pokestop]()
+                        //self.lureEventLock.unlock()
+						//
+                        //self.invasionEventLock.lock()
+                        //for invasionEvent in self.invasionEvents {
+                        //    events.append(invasionEvent.value.getWebhookValues(type: "invasion"))
+                        //}
+                        //self.invasionEvents = [String: Pokestop]()
+                        //self.invasionEventLock.unlock()
+						//
+                        //self.questEventLock.lock()
+                        //for questEvent in self.questEvents {
+                        //    events.append(questEvent.value.getWebhookValues(type: "quest"))
+                        //}
+                        //self.questEvents = [String: Pokestop]()
+                        //self.questEventLock.unlock()
+						//
+                        //self.gymEventLock.lock()
+                        //for gymEvent in self.gymEvents {
+                        //    events.append(gymEvent.value.getWebhookValues(type: "gym"))
+                        //}
+                        //self.gymEvents = [String: Gym]()
+                        //self.gymEventLock.unlock()
+						//
+                        //self.gymInfoEventLock.lock()
+                        //for gymInfoEvent in self.gymInfoEvents {
+                        //    events.append(gymInfoEvent.value.getWebhookValues(type: "gym-info"))
+                        //}
+                        //self.gymInfoEvents = [String: Gym]()
+                        //self.gymInfoEventLock.unlock()
 
                         self.raidEventLock.lock()
                         for raidEvent in self.raidEvents {
@@ -208,19 +208,19 @@ class WebHookController {
                         self.eggEvents = [String: Gym]()
                         self.eggEventLock.unlock()
 
-                        self.weatherEventLock.lock()
-                        for weatherEvent in self.weatherEvents {
-                            events.append(weatherEvent.value.getWebhookValues(type: "weather"))
-                        }
-                        self.weatherEvents = [Int64: Weather]()
-                        self.weatherEventLock.unlock()
-
-                        self.accountEventLock.lock()
-                        for accountEvent in self.accountEvents {
-                            events.append(accountEvent.value.getWebhookValues(type: "account"))
-                        }
-                        self.accountEvents = [String: Account]()
-                        self.accountEventLock.unlock()
+                        //self.weatherEventLock.lock()
+                        //for weatherEvent in self.weatherEvents {
+                        //    events.append(weatherEvent.value.getWebhookValues(type: "weather"))
+                        //}
+                        //self.weatherEvents = [Int64: Weather]()
+                        //self.weatherEventLock.unlock()
+						//
+                        //self.accountEventLock.lock()
+                        //for accountEvent in self.accountEvents {
+                        //    events.append(accountEvent.value.getWebhookValues(type: "account"))
+                        //}
+                        //self.accountEvents = [String: Account]()
+                        //self.accountEventLock.unlock()
 
                         if !events.isEmpty {
                             for url in self.webhookURLStrings {
