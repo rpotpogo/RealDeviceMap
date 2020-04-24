@@ -344,7 +344,7 @@ class Account: WebHookEvent {
                     UNIX_TIMESTAMP() - CAST(last_encounter_time AS SIGNED INTEGER) >= 7200 AND
                     spins < 400
                 )
-            ORDER BY level DESC, RAND()
+            ORDER BY PRIORITY DESC, level DESC
             LIMIT 1
         """
 
