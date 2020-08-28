@@ -150,41 +150,41 @@ class WebHookController {
                         self.pokemonEventLock.unlock()
                         events += pokemonEvents.map({$0.value.getWebhookValues(type: "pokemon")})
 
-                        self.pokestopEventLock.lock()
-                        let pokestopEvents = self.pokestopEvents
-                        self.pokestopEvents = [:]
-                        self.pokestopEventLock.unlock()
-                        events += pokestopEvents.map({$0.value.getWebhookValues(type: "pokestop")})
+                        //self.pokestopEventLock.lock()
+                        //let pokestopEvents = self.pokestopEvents
+                        //self.pokestopEvents = [:]
+                        //self.pokestopEventLock.unlock()
+                        //events += pokestopEvents.map({$0.value.getWebhookValues(type: "pokestop")})
 
-                        self.lureEventLock.lock()
-                        let lureEvents = self.lureEvents
-                        self.lureEvents = [:]
-                        self.lureEventLock.unlock()
-                        events += lureEvents.map({$0.value.getWebhookValues(type: "lure")})
+                        //self.lureEventLock.lock()
+                        //let lureEvents = self.lureEvents
+                        //self.lureEvents = [:]
+                        //self.lureEventLock.unlock()
+                        //events += lureEvents.map({$0.value.getWebhookValues(type: "lure")})
 
-                        self.invasionEventLock.lock()
-                        let invasionEvents = self.invasionEvents
-                        self.invasionEvents = [String: Pokestop]()
-                        self.invasionEventLock.unlock()
-                        events += invasionEvents.map({$0.value.getWebhookValues(type: "invasion")})
+                        //self.invasionEventLock.lock()
+                        //let invasionEvents = self.invasionEvents
+                        //self.invasionEvents = [String: Pokestop]()
+                        //self.invasionEventLock.unlock()
+                        //events += invasionEvents.map({$0.value.getWebhookValues(type: "invasion")})
 
-                        self.questEventLock.lock()
-                        let questEvents = self.questEvents
-                        self.questEvents = [String: Pokestop]()
-                        self.questEventLock.unlock()
-                        events += questEvents.map({$0.value.getWebhookValues(type: "quest")})
+                        //self.questEventLock.lock()
+                        //let questEvents = self.questEvents
+                        //self.questEvents = [String: Pokestop]()
+                        //self.questEventLock.unlock()
+                        //events += questEvents.map({$0.value.getWebhookValues(type: "quest")})
 
-                        self.gymEventLock.lock()
-                        let gymEvents = self.gymEvents
-                        self.gymEvents = [String: Gym]()
-                        self.gymEventLock.unlock()
-                        events += gymEvents.map({$0.value.getWebhookValues(type: "gym")})
+                        //self.gymEventLock.lock()
+                        //let gymEvents = self.gymEvents
+                        //self.gymEvents = [String: Gym]()
+                        //self.gymEventLock.unlock()
+                        //events += gymEvents.map({$0.value.getWebhookValues(type: "gym")})
 
-                        self.gymInfoEventLock.lock()
-                        let gymInfoEvents = self.gymInfoEvents
-                        self.gymInfoEvents = [String: Gym]()
-                        self.gymInfoEventLock.unlock()
-                        events += gymInfoEvents.map({$0.value.getWebhookValues(type: "gym-info")})
+                        //self.gymInfoEventLock.lock()
+                        //let gymInfoEvents = self.gymInfoEvents
+                        //self.gymInfoEvents = [String: Gym]()
+                        //self.gymInfoEventLock.unlock()
+                        //events += gymInfoEvents.map({$0.value.getWebhookValues(type: "gym-info")})
 
                         self.raidEventLock.lock()
                         let raidEvents = self.raidEvents
@@ -198,17 +198,17 @@ class WebHookController {
                         self.eggEventLock.unlock()
                         events += eggEvents.map({$0.value.getWebhookValues(type: "egg")})
 
-                        self.weatherEventLock.lock()
-                        let weatherEvents = self.weatherEvents
-                        self.weatherEvents = [Int64: Weather]()
-                        self.weatherEventLock.unlock()
-                        events += weatherEvents.map({$0.value.getWebhookValues(type: "weather")})
+                        //self.weatherEventLock.lock()
+                        //let weatherEvents = self.weatherEvents
+                        //self.weatherEvents = [Int64: Weather]()
+                        //self.weatherEventLock.unlock()
+                        //events += weatherEvents.map({$0.value.getWebhookValues(type: "weather")})
 
-                        self.accountEventLock.lock()
-                        let accountEvents = self.accountEvents
-                        self.accountEvents = [String: Account]()
-                        self.accountEventLock.unlock()
-                        events += accountEvents.map({$0.value.getWebhookValues(type: "account")})
+                        //self.accountEventLock.lock()
+                        //let accountEvents = self.accountEvents
+                        //self.accountEvents = [String: Account]()
+                        //self.accountEventLock.unlock()
+                        //events += accountEvents.map({$0.value.getWebhookValues(type: "account")})
 
                         if !events.isEmpty {
                             guard let body = events.jsonEncodeForceTry() else {
