@@ -497,7 +497,7 @@ class Account: WebHookEvent {
                 \(spinSQL)
                 \(cooldownSQL)
                 \(lockoutSQL)
-            ORDER BY level DESC, last_used_timestamp DESC
+            ORDER BY PRIORITY DESC, level DESC, last_used_timestamp DESC
             LIMIT 1
         """
 
