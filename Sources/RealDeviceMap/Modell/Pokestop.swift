@@ -1294,4 +1294,30 @@ class Pokestop: JSONConvertibleObject, WebHookEvent, Hashable {
         return lhs.id == rhs.id
     }
 
+    public static func hasQuestWithId(mysql: MySQL?=nil, id: String) throws -> Int {
+        
+        guard let mysql = mysql ?? DBController.global.mysql else {
+            Log.error(message: "[POKESTOP] Failed to connect to database.")
+            throw DBController.DBError()
+        }
+
+        let sql = """
+            SELECT id, lat, lon, name
+            FROM pokestop
+            WHERE id = ? AND quest_reward_type IS NOT NULL
+        """
+
+        let mysqlStmt = MySQLStmt(mysql)
+        _ = mysqlStmt.prepare(statement: sql)
+        mysqlStmt.bindParam(id)
+        
+        guard mysqlStmt.execute() else {
+            Log.error(message: "[POKESTOP] Failed to execute query. (\(mysqlStmt.errorMessage())")
+            throw DBController.DBError()
+        }
+        let results = mysqlStmt.results()
+        return results.numRows
+    }
+
+
 }

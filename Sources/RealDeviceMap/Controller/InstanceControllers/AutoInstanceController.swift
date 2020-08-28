@@ -321,44 +321,64 @@ class AutoInstanceController: InstanceControllerProto {
                 }
 
                 if lastCoord != nil {
-
-                    var closest: Pokestop?
+                    var bFound = false
                     var closestDistance: Double = 10000000000000000
-                    stopsLock.lock()
-                    let todayStopsC = todayStops
-                    stopsLock.unlock()
-                    if todayStopsC!.isEmpty {
-                        return [String: Any]()
-                    }
+                    while !bFound {
+                        var closest: Pokestop?
+                        closestDistance = 10000000000000000               
+                        stopsLock.lock()
+                        let todayStopsC = todayStops
+                        stopsLock.unlock()
+                        if todayStopsC!.isEmpty {
+                            return [String: Any]()
+                        }
 
-                    for stop in todayStopsC! {
-                        let coord = Coord(lat: stop.lat, lon: stop.lon)
-                        let dist = lastCoord!.distance(to: coord)
-                        if dist < closestDistance {
-                            closest = stop
-                            closestDistance = dist
+                        for stop in todayStopsC! {
+                            let coord = Coord(lat: stop.lat, lon: stop.lon)
+                            let dist = lastCoord!.distance(to: coord)
+                            if dist < closestDistance {
+                                closest = stop
+                                closestDistance = dist
+                            }
+                        }
+
+
+                        if closest == nil {
+                            return [String: Any]()
+                        }
+                        pokestop = closest!
+                        var iQuests = 0
+                        do {
+                            iQuests = try Pokestop.hasQuestWithId(mysql: mysql, id: pokestop!.id)
+                        } catch {
+                            iQuests = 0
+                        }
+                        if iQuests > 0 { //stop already has a quest in DB, so remove it from the array and get the next closest stop
+                            stopsLock.lock()
+                            if let index = todayStops!.index(of: pokestop!) {
+                                todayStops!.remove(at: index)
+                            }
+                            stopsLock.unlock()
+                        } else {
+                            bFound = true
                         }
                     }
 
-                    if closest == nil {
-                        return [String: Any]()
-                    }
-                    pokestop = closest!
-
-                    var nearbyStops = [pokestop]
-                    let pokestopCoord = Coord(lat: pokestop.lat, lon: pokestop.lon)
-                    for stop in todayStopsC! {
-                        // MARK: Revert back to 40m once reverted ingame
-                        if pokestopCoord.distance(to: Coord(lat: stop.lat, lon: stop.lon)) <= 80 {
-                            nearbyStops.append(stop)
-                        }
-                    }
+                    //var nearbyStops = [pokestop]
+                    //let pokestopCoord = Coord(lat: pokestop.lat, lon: pokestop.lon)
+                    //for stop in todayStopsC! {
+                    //    // MARK: Revert back to 40m once reverted ingame
+                    //    if pokestopCoord.distance(to: Coord(lat: stop.lat, lon: stop.lon)) <= 80 {
+                    //        nearbyStops.append(stop)
+                    //    }
+                    //}
                     stopsLock.lock()
-                    for pokestop in nearbyStops {
-                        if let index = todayStops!.firstIndex(of: pokestop) {
+                    //for pokestop in nearbyStops {
+                        if let index = todayStops!.index(of: pokestop!) {
                             todayStops!.remove(at: index)
                         }
-                    }
+                    //}
+
                     stopsLock.unlock()
                 } else {
                     stopsLock.lock()
@@ -378,7 +398,7 @@ class AutoInstanceController: InstanceControllerProto {
                     let result = try Cooldown.cooldown(
                         account: account,
                         deviceUUID: uuid,
-                        location: Coord(lat: pokestop.lat, lon: pokestop.lon)
+                        location: Coord(lat: pokestop!.lat, lon: pokestop!.lon)
                     )
                     delay = result.delay
                     encounterTime = result.encounterTime
@@ -438,7 +458,7 @@ class AutoInstanceController: InstanceControllerProto {
                         mysql: mysql,
                         account: account,
                         deviceUUID: uuid,
-                        location: Coord(lat: pokestop.lat, lon: pokestop.lon),
+                        location: Coord(lat: pokestop!.lat, lon: pokestop!.lon),
                         encounterTime: encounterTime
                   )
                 } catch {
@@ -493,7 +513,7 @@ class AutoInstanceController: InstanceControllerProto {
                 } else {
                     stopsLock.unlock()
                 }
-                return ["action": "scan_quest", "deploy_egg": false, "lat": pokestop.lat, "lon": pokestop.lon,
+                return ["action": "scan_quest", "deploy_egg": false, "lat": pokestop!.lat, "lon": pokestop!.lon,
                         "delay": delay, "min_level": minLevel, "max_level": maxLevel]
             }
         }
