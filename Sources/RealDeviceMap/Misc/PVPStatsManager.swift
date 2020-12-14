@@ -233,7 +233,7 @@ internal class PVPStatsManager {
         for iv in IV.all {
             var maxLevel: Double = 0
             var maxCP: Int = 0
-            for level in stride(from: 0.0, through: 50.0, by: 0.5).reversed() {
+            for level in stride(from: 0.0, through: 51.0, by: 0.5).reversed() {
                 let cp = (cap == nil ? 0 : getCPValue(iv: iv, level: level, stats: stats))
                 if cp <= (cap ?? 0) {
                     maxLevel = level
