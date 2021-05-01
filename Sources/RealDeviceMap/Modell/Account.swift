@@ -402,22 +402,23 @@ class Account: WebHookEvent {
         }
 
         let failedSQL: String
-        if ignoringWarning {
-            failedSQL = """
+        //if ignoringWarning {
+        failedSQL = """
             AND (
-                failed IS NULL OR failed = 'GPR_RED_WARNING'
+                  failed IS NULL 
             )
             """
-        } else {
-            failedSQL = """
-            AND (
-                (failed IS NULL AND first_warning_timestamp IS NULL) OR
-                (failed = 'GPR_RED_WARNING' AND warn_expire_timestamp IS NOT NULL AND
-                 warn_expire_timestamp != 0 AND warn_expire_timestamp <= UNIX_TIMESTAMP()) OR
-                (failed = 'suspended' AND failed_timestamp <= UNIX_TIMESTAMP() - 2592000)
-            )
-            """
-        }
+        //        failed IS NULL OR failed = 'GPR_RED_WARNING'
+        //} else {
+        //    failedSQL = """
+        //    AND (
+        //        (failed IS NULL AND first_warning_timestamp IS NULL) OR
+        //        (failed = 'GPR_RED_WARNING' AND warn_expire_timestamp IS NOT NULL AND
+        //         warn_expire_timestamp != 0 AND warn_expire_timestamp <= UNIX_TIMESTAMP()) OR
+        //        (failed = 'suspended' AND failed_timestamp <= UNIX_TIMESTAMP() - 2592000)
+        //    )
+        //    """
+        //}
 
         let spinSQL: String
         if spins != nil {
